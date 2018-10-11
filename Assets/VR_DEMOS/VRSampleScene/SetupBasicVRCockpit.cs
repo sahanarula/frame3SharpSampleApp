@@ -82,34 +82,47 @@ class SetupBasicVRCockpit : ICockpitInitializer
         cockpit.AddKeyHandler(new SampleKeyHandler(cockpit.Context));
 
         // these behaviors let us interact with UIElements (ie left-click/trigger, or either triggers for Touch)
-        cockpit.InputBehaviors.Add(new VRMouseUIBehavior(cockpit.Context) { Priority = 0 });
-        cockpit.InputBehaviors.Add(new VRGamepadUIBehavior(cockpit.Context) { Priority = 0 });
+        //cockpit.InputBehaviors.Add(new VRMouseUIBehavior(cockpit.Context) { Priority = 0 });
+        //cockpit.InputBehaviors.Add(new VRGamepadUIBehavior(cockpit.Context) { Priority = 0 });
         cockpit.InputBehaviors.Add(new VRSpatialDeviceUIBehavior(cockpit.Context) { Priority = 0 });
 
 
         // spatial device does camera manipulation via Behavior
         //   (mouse/gamepad currently do not, but will in future!)
 
-        cockpit.InputBehaviors.Add(new TwoHandViewManipBehavior(cockpit) { Priority = 1 });
+        //cockpit.InputBehaviors.Add(new TwoHandViewManipBehavior(cockpit) { Priority = 1 });
         // view manip w/ shoulder + pad/stick
-        cockpit.InputBehaviors.Add(new SpatialDeviceViewManipBehavior(cockpit) { Priority = 2 });
+        //cockpit.InputBehaviors.Add(new SpatialDeviceViewManipBehavior(cockpit) { Priority = 2 });
         // view manp w/ either shoulder
         // cockpit.InputBehaviors.Add(new SpatialDeviceGrabViewBehavior(cockpit) { Priority = 2 });
-        cockpit.InputBehaviors.Add(new SpatialDeviceGrabBehavior(cockpit) { Priority = 3 });
 
         // selection / multi-selection behaviors
-        cockpit.InputBehaviors.Add(new MouseMultiSelectBehavior(cockpit.Context) { Priority = 10 });
-        cockpit.InputBehaviors.Add(new GamepadMultiSelectBehavior(cockpit.Context) { Priority = 10 });
-        cockpit.InputBehaviors.Add(new SpatialDeviceMultiSelectBehavior(cockpit.Context) { Priority = 10 });
-
+        //cockpit.InputBehaviors.Add(new MouseMultiSelectBehavior(cockpit.Context) { Priority = 10 });
+        //cockpit.InputBehaviors.Add(new GamepadMultiSelectBehavior(cockpit.Context) { Priority = 10 });
         // de-selection behaviors
-        cockpit.InputBehaviors.Add(new MouseDeselectBehavior(cockpit.Context) { Priority = 999 });
-        cockpit.InputBehaviors.Add(new GamepadDeselectBehavior(cockpit.Context) { Priority = 999 });
-        cockpit.InputBehaviors.Add(new SpatialDeviceDeselectBehavior(cockpit.Context) { Priority = 999 });
+        //cockpit.InputBehaviors.Add(new MouseDeselectBehavior(cockpit.Context) { Priority = 999 });
+        //cockpit.InputBehaviors.Add(new GamepadDeselectBehavior(cockpit.Context) { Priority = 999 });
+
+
+        // I DISABLED SELECT AND DESELECT BEHAVIOUS BECAUSE THEY CAPTURE THE TRIGGER INPUT
+
+        //cockpit.InputBehaviors.Add(new SpatialDeviceMultiSelectBehavior(cockpit.Context) { Priority = 10 });
+        //cockpit.InputBehaviors.Add(new SpatialDeviceDeselectBehavior(cockpit.Context) { Priority = 999 });
+
+        // GRAB OBJECT BEHAVIOR DOES NOT WORK BECAUSE GESTURE BEHAVIOR CAPTURES TRIGGER FIRST
+
+        cockpit.InputBehaviors.Add(new SpatialDeviceGrabBehavior(cockpit) { Priority = 3 });
+
+
+        // STUDENT BEHAVIORS
+
+        //cockpit.InputBehaviors.Add(new VRGestureBehavior(cockpit.Context) { Priority = 10 });
+
+
 
         // screencap to your dropbox
-        cockpit.OverrideBehaviors.Add(new ScreenCaptureBehavior() { Priority = 0,
-            ScreenshotPath = Environment.GetEnvironmentVariable("homepath") + "\\DropBox\\ScreenShots\\" });
+        //cockpit.OverrideBehaviors.Add(new ScreenCaptureBehavior() { Priority = 0,
+        //    ScreenshotPath = Environment.GetEnvironmentVariable("homepath") + "\\DropBox\\ScreenShots\\" });
 
     }
 
