@@ -46,6 +46,7 @@ public class VRGestureBehavior : StandardInputBehavior
     public override CaptureRequest WantsCapture(InputState input)
     {
         // YOU SHOULD CHANGE THESE TO BE SUITABLE FOR YOUR BUTTON MAPPINGS ETC
+        f3.DebugUtil.Log("Capture request");
 
         if (input.bLeftTriggerPressed) {
             return CaptureRequest.Begin(this, CaptureSide.Left);
@@ -61,6 +62,7 @@ public class VRGestureBehavior : StandardInputBehavior
     // STARTS THE A STROKE CAPTURE
     public override Capture BeginCapture(InputState input, CaptureSide eSide)
     {
+        f3.DebugUtil.Log("Begin Capture");
         Ray3f useRay = (eSide == CaptureSide.Left) ? input.vLeftSpatialWorldRay : input.vRightSpatialWorldRay;
         Frame3f handF = (eSide == CaptureSide.Left) ? input.LeftHandFrame : input.RightHandFrame;
         return Capture.Begin(this, eSide, new GestureInfo(handF) );
@@ -70,6 +72,7 @@ public class VRGestureBehavior : StandardInputBehavior
     // CALLED EVERY FRAME WITH NEW INPUT STATE (BUTTON POSITIONS, ETC)
     public override Capture UpdateCapture(InputState input, CaptureData data)
     {
+        f3.DebugUtil.Log("update Capture");
         GestureInfo gi = data.custom_data as GestureInfo;
         gi.AppendPoint((data.which == CaptureSide.Left) ? input.LeftHandFrame : input.RightHandFrame);
 
@@ -101,7 +104,8 @@ public class VRGestureBehavior : StandardInputBehavior
     }
 
     public override Capture ForceEndCapture(InputState input, CaptureData data)
-    {
+    {        
+        f3.DebugUtil.Log("Force end capture");
         GestureInfo gi = data.custom_data as GestureInfo;
         return Capture.End;
     }
